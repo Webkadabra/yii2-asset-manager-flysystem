@@ -92,7 +92,7 @@ class AssetManager extends \yii\web\AssetManager
             
             $folders = FileHelper::findDirectories($src);
             foreach ($folders as $folder) {
-                $folder = substr($folder,$currentLength);
+                $folder = substr($folder, $currentLength);
                 $this->flySystem->createDir($dstDir . $folder);
             }
 
