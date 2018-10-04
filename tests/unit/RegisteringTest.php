@@ -4,9 +4,9 @@ namespace tests\unit;
 
 use Codeception\Test\Unit;
 use dosamigos\flysystem\LocalFsComponent;
-use dosamigos\flysystem\MemoryFsComponent;
 use League\Flysystem\Config;
 use mikk150\assetmanager\AssetManager;
+use tests\MemoryFilesystem;
 use yii\base\InvalidConfigException;
 
 class RegisteringTest extends Unit
@@ -16,7 +16,7 @@ class RegisteringTest extends Unit
         $this->expectException(InvalidConfigException::class);
         $this->expectExceptionMessage('Linking assets is not supported.');
 
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $assetManager = new AssetManager([
             'flySystem' => $flySystem,
@@ -31,7 +31,7 @@ class RegisteringTest extends Unit
         $this->expectException(InvalidConfigException::class);
         $this->expectExceptionMessage('basePath needs to be set.');
 
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $assetManager = new AssetManager([
             'flySystem' => $flySystem,
@@ -44,7 +44,7 @@ class RegisteringTest extends Unit
         $this->expectException(InvalidConfigException::class);
         $this->expectExceptionMessage('baseUrl needs to be set.');
 
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $assetManager = new AssetManager([
             'flySystem' => $flySystem,
@@ -64,7 +64,7 @@ class RegisteringTest extends Unit
 
     public function testRegisteringSingleFile()
     {
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $assetManager = new AssetManager([
             'flySystem' => $flySystem,
@@ -83,7 +83,7 @@ class RegisteringTest extends Unit
 
     public function testRegisteringDirectory()
     {
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $assetManager = new AssetManager([
             'flySystem' => $flySystem,
@@ -106,7 +106,7 @@ class RegisteringTest extends Unit
 
     public function testUpdatingFileWhenItWasPreviouslyPublished()
     {
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $flySystem->write('test/test/file.js', 'old_content', [
             'timestamp' => 0
@@ -129,7 +129,7 @@ class RegisteringTest extends Unit
 
     public function testUpdatingDirWhenItWasPreviouslyPublished()
     {
-        $flySystem = new MemoryFsComponent();
+        $flySystem = new MemoryFilesystem();
 
         $flySystem->createDir('test/test');
         $flySystem->write('test/test/deleteme.js', 'old_content', [
