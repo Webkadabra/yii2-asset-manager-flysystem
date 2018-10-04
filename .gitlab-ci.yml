@@ -35,19 +35,19 @@ test:5.6:
   script:
     - pecl install xdebug-2.5.5
     - docker-php-ext-enable xdebug
-    - vendor/bin/codecept run --coverage --coverate-html
+    - vendor/bin/codecept run --coverage --coverage-html
 
 test:7.0:
   image: yiisoftware/yii2-php:7.0-fpm
   script:
-    - phpdbg -qrr vendor/bin/codecept run --coverage --coverate-html
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
 
 test:7.1:
   image: yiisoftware/yii2-php:7.1-fpm
   script:
-    - phpdbg -qrr vendor/bin/codecept run --coverage --coverate-html
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
 
 test:7.2:
   image: yiisoftware/yii2-php:7.2-fpm
   script:
-    - phpdbg -qrr vendor/bin/codecept run --coverage --coverate-html
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
