@@ -1,0 +1,39 @@
+{
+    "name": "mikk150/yii2-asset-manager-flysystem",
+    "description": "yii2 asset manager that uploads assets to flysystem",
+    "type": "yii2-extension",
+    "keywords": [
+        "yii2",
+        "extension",
+        "assetmanager",
+        "flysystem",
+        "cdn"
+    ],
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Mikk Tendermann",
+            "email": "mikk150@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.13",
+        "2amigos/yii2-flysystem-component": "^1.0"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.4",
+        "yiisoft/yii2-coding-standards": "^2.0",
+        "league/flysystem-memory": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "mikk150\\assetmanager\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
