@@ -86,7 +86,9 @@ class AssetManager extends \yii\web\AssetManager
         $currentLength = strlen($src);
 
         if (!empty($options['forceCopy']) || ($this->forceCopy && !isset($options['forceCopy'])) || !$this->flySystem->has($dstDir)) {
-            $this->flySystem->deleteDir($dstDir);
+            if ($this->flySystem->has($dstDir)) {
+                $this->flySystem->deleteDir($dstDir);
+            }
             
             $folders = FileHelper::findDirectories($src);
             foreach ($folders as $folder) {
