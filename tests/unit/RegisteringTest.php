@@ -126,4 +126,30 @@ class RegisteringTest extends Unit
         $this->assertTrue($flySystem->has('test/test/file.js'));
         $this->assertEquals('http://cdn.test.org/test/test/test/file.js', $asset[1]);
     }
+
+    public function testUpdatingDirWhenItWasPreviouslyPublished()
+    {
+        $flySystem = new MemoryFsComponent();
+
+        $flySystem->createDir('test/test');
+        $flySystem->write('test/test/deleteme.js', 'old_content', [
+            'timestamp' => 0
+        ]);
+
+        $assetManager = new AssetManager([
+            'flySystem' => $flySystem,
+            'basePath' => 'test',
+            'baseUrl' => 'http://cdn.test.org/test/test',
+            'forceCopy' => true,
+            'hashCallback' => function ($src) {
+                return 'test';
+            }
+        ]);
+
+        $asset = $assetManager->publish(codecept_data_dir() . '/directory');
+
+        $this->assertFalse($flySystem->has('test/test/deleteme.js'));
+        $this->assertTrue($flySystem->has('test/test/file.js'));
+        $this->assertEquals('http://cdn.test.org/test/test/test', $asset[1]);
+    }
 }
