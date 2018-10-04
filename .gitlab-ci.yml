@@ -1,0 +1,51 @@
+
+.test-shared: &test-shared
+  # Select what we should cache between builds
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - vendor/
+  stage: test
+  before_script:
+    - composer install --prefer-dist --no-interaction
+  artifacts:
+    paths:
+      - tests/_output
+    expire_in: 1 week
+    when: always
+
+stages:
+  - phpcs
+  - test
+
+phpcs:
+  stage: phpcs
+  image: alexeevdv/yii2-phpcs
+  script:
+    - phpcs --extensions=php ./
+
+test:5.6:
+  <<: *test-shared
+  image: yiisoftware/yii2-php:5.6-fpm
+  script:
+    - pecl install xdebug-2.5.5
+    - docker-php-ext-enable xdebug
+    - vendor/bin/codecept run --coverage --coverage-html
+
+test:7.0:
+  <<: *test-shared
+  image: yiisoftware/yii2-php:7.0-fpm
+  script:
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
+
+test:7.1:
+  <<: *test-shared
+  image: yiisoftware/yii2-php:7.1-fpm
+  script:
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
+
+test:7.2:
+  <<: *test-shared
+  image: yiisoftware/yii2-php:7.2-fpm
+  script:
+    - phpdbg -qrr vendor/bin/codecept run --coverage --coverage-html
