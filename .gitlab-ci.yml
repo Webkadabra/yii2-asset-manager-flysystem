@@ -1,0 +1,22 @@
+before_script:
+  - composer install --prefer-dist --no-interaction
+
+cache:
+  key: "$CI_JOB_NAME"
+  paths:
+    - vendor/
+
+test:5.6:
+  image: yiisoftware/yii2-php:5.6-fpm
+  script:
+    - vendor/bin/codecept run
+
+test:7.0:
+  image: yiisoftware/yii2-php:7.0-fpm
+  script:
+    - vendor/bin/codecept run
+
+test:7.1:
+  image: yiisoftware/yii2-php:7.1-fpm
+  script:
+    - vendor/bin/codecept run
