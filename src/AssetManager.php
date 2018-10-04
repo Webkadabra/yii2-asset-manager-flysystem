@@ -2,7 +2,7 @@
 
 namespace mikk150\assetmanager;
 
-use dosamigos\flysystem\AbstractFsComponent;
+use creocoder\flysystem\Filesystem;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\di\Instance;
@@ -20,7 +20,7 @@ class AssetManager extends \yii\web\AssetManager
     public $baseUrl;
 
     /**
-     * @var AbstractFsComponent
+     * @var Filesystem
      */
     public $flySystem;
 
@@ -29,7 +29,7 @@ class AssetManager extends \yii\web\AssetManager
      */
     public function init()
     {
-        $this->flySystem = Instance::ensure($this->flySystem, AbstractFsComponent::class);
+        $this->flySystem = Instance::ensure($this->flySystem, Filesystem::class);
 
         if ($this->linkAssets) {
             throw new InvalidConfigException('Linking assets is not supported.');
